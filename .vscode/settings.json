@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"memory.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"locale": "cpp"
 	}
 }

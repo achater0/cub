@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/08/26 19:03:45 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/09 11:18:57 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ int main()
 	my_mlx_t *mlx;
 
 	mlx = malloc(sizeof(my_mlx_t));
-	mlx->map = malloc(sizeof(char *) * 10);
+	mlx->block_size = 120;
+	mlx->width = 1200;
+	mlx->height = 1200;
+	mlx->map = malloc(sizeof(char *) * (mlx->height / mlx->block_size  ));
 	i = 0;
-	while (i < 10)
+	while (i < mlx->height / mlx->block_size)
 	{
 		mlx->map[i] = malloc(sizeof(char) * 10);
 		j = 0;
-		while (j < 10)
+		while (j < mlx->width / mlx->block_size)
 		{
 			if (i == 0 || i == 9)
 				mlx->map[i][j] = '1';
@@ -37,9 +40,11 @@ int main()
 		}
 		i++;
 	}
+	// mlx->map[0][0] = '0';
 	mlx->map[5][5] = 'N';
 	mlx->map[5][6] = '1';
 	mlx->map[6][5] = '1';
+
 	// create map
 	// mlx->map[0] = "11111111111111111111111111111111111111111111111111111";
 	// mlx->map[1] = "100000000100000000100000000100000000100000000100000001";

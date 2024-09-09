@@ -6,13 +6,11 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/08/26 18:10:38 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/09 11:44:41 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-
 
 void initiate_angle_pos(my_mlx_t *mlx)
 {
@@ -36,8 +34,8 @@ void initiate_angle_pos(my_mlx_t *mlx)
 			if (mlx->map[i][j] == 'N' || mlx->map[i][j] == 'E'
 				|| mlx->map[i][j] == 'S' || mlx->map[i][j] == 'W')
 			{
-				mlx->x = i * 80 + 40;
-				mlx->y = j * 80 + 40;
+				mlx->x = i * mlx->block_size + mlx->block_size / 2;
+				mlx->y = j * mlx->block_size + mlx->block_size / 2;
 			}
 		}
 	}
@@ -88,76 +86,6 @@ void draw_player(mlx_image_t *img,int x, int y, int radius, int color)
 	if (radius == 10)
 		draw_player(img,x, y, 1, ft_pixel(0, 255, 0, 255));
 }
-// void draw_pov(my_mlx_t *mlx, int x, int y, double angle, int fov, int color)
-// {
-// 	double	start_angle = angle - (fov / 2);
-// 	double	end_angle = angle + (fov / 2);
-// 	double	step = 1;
-// 	double	a = start_angle;
-// 	double	ray_x;
-// 	double	ray_y;
-// 	while (a <= end_angle)
-// 	{
-// 		ray_x = x;
-// 		ray_y = y;
-// 		while (1)
-// 		{
-// 			ray_x += cos(a * M_PI / 180);
-// 			ray_y += sin(a * M_PI / 180);
-// 			if (mlx->map[(int)(ray_x / 80)][(int)(ray_y / 80)] == '1')
-// 				break;
-// 			mlx_put_pixel(mlx->img, (int)ray_x, (int)ray_y, color);
-// 		}
-// 		a += step;
-// 	}
-// }
-void draw_pov(my_mlx_t *mlx, int x, int y, double angle, int fov, int color)
-{
-	double start_angle = angle - (fov / 2);
-	double end_angle = angle + (fov / 2);
-	double step = (double)fov / 800;
-	double a = start_angle;
-	int screen_x = 0;
-	while (a <= end_angle)
-	{
-		double ray_x = x;
-		double ray_y = y;
-		double distance = 0;
-		while (1)
-		{
-		    ray_x += cos(a * M_PI / 180);
-		    ray_y += sin(a * M_PI / 180);
-		    distance++;
-		    if (mlx->map[(int)(ray_x / 80)][(int)(ray_y / 80)] == '1')
-		        break;
-		}
-		double correct_distance = distance * cos((a - angle) * M_PI / 180);
-		int wall_height = (int)((80 * 800) / correct_distance);
-		int wall_start = (800 / 2) - (wall_height / 2);
-		int wall_end = wall_start + wall_height;
-		int y = wall_start;
-		// int x = 0;
-		// while(x < wall_start)
-		// {
-		//     mlx_put_pixel(mlx->img, screen_x, x, ft_pixel(0, 0, 0, 255));
-		//     x++;
-		// }
-		// x = wall_end;
-		// while(x < 780)
-		// {
-		//     mlx_put_pixel(mlx->img, screen_x, x, ft_pixel(0, 255, 255, 255));
-		//     x++;
-		// }
-		while (y < wall_end)
-		{
-		    if (y >= 0 && y < 800)
-		        mlx_put_pixel(mlx->img, screen_x, y, color);
-		    y++;
-		}
-		a += step;
-		screen_x++;
-	}
-}
 
 
 
@@ -173,22 +101,23 @@ void draw_mlx(my_mlx_t *mlx)
 	// 	while(j < 10)
 	// 	{
 	// 		if (mlx->map[i][j] == '1')
-	// 			color_the_block(mlx->img, i *80, j * 80, 80, 80, ft_pixel(0, 0, 0, 255));
+	// 			color_the_block(mlx->img, i *mlx->block_size, j * mlx->block_size
+	// 				, mlx->block_size, mlx->block_size, ft_pixel(0, 0, 0, 255));
 	// 		else
-	// 			color_the_block(mlx->img,i * 80, j * 80, 80, 80, ft_pixel(255, 255, 255, 255));
+	// 			color_the_block(mlx->img,i * mlx->block_size, j * mlx->block_size
+	// 				, mlx->block_size, mlx->block_size, ft_pixel(255, 255, 255, 255));
 	// 		j++;
 	// 	}
 	// 	i++;
 	// }
 	// draw_player(mlx->img, mlx->x, mlx->y , 10, ft_pixel(255, 0, 0, 255));
-	draw_pov(mlx, mlx->x, mlx->y, mlx->angle, 60, ft_pixel(0, 0, 255, 255));
+	ray_casting(mlx);
 }
 
 void	main_fct(my_mlx_t *mlx)
 {
-
-	mlx->mlx = mlx_init(800, 800,"cub3d", 0);
-	mlx->img = mlx_new_image(mlx->mlx, 800, 800);
+	mlx->mlx = mlx_init(mlx->height, mlx->width,"cub3d", 0);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->height, mlx->width);
 	initiate_angle_pos(mlx);
 	draw_mlx(mlx);
 	mlx_loop_hook(mlx->mlx, hook_fct, mlx);
