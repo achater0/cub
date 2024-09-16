@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/09/09 11:18:57 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/16 11:17:09 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ int main()
 	mlx->block_size = 120;
 	mlx->width = 1200;
 	mlx->height = 1200;
-	mlx->map = malloc(sizeof(char *) * (mlx->height / mlx->block_size  ));
+	// need those values
+	mlx->raws = 10; // number of raws in the map
+	mlx->cols = 10; // number of columns in the map
+	mlx->map = malloc(sizeof(char *) * (mlx->raws));
 	i = 0;
-	while (i < mlx->height / mlx->block_size)
+	while (i < mlx->raws)
 	{
-		mlx->map[i] = malloc(sizeof(char) * 10);
+		mlx->map[i] = malloc(sizeof(char) * mlx->cols);
 		j = 0;
-		while (j < mlx->width / mlx->block_size)
+		while (j < mlx->cols)
 		{
 			if (i == 0 || i == 9)
 				mlx->map[i][j] = '1';

@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/09 11:44:41 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/16 09:39:38 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void initiate_angle_pos(my_mlx_t *mlx)
 	int j;
 
 	i = -1;
-	while(++i < 10)
+	while(++i < mlx->raws)
 	{
 		j = -1;
-		while(++j < 10)
+		while(++j < mlx->cols)
 		{
 			if (mlx->map[i][j] == 'N')
 				mlx->angle = 270;
@@ -95,10 +95,10 @@ void draw_mlx(my_mlx_t *mlx)
 	// int j;
 
 	// i = 0;
-	// while(i < 10)
+	// while(i < mlx->raws)
 	// {
 	// 	j = 0;
-	// 	while(j < 10)
+	// 	while(j < mlx->cols)
 	// 	{
 	// 		if (mlx->map[i][j] == '1')
 	// 			color_the_block(mlx->img, i *mlx->block_size, j * mlx->block_size

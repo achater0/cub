@@ -22,6 +22,8 @@ typedef struct my_mlx_s
 	int width;
 	int height;
 	int block_size;
+	int	raws;
+	int	cols;
 } my_mlx_t;
 
 void	main_fct(my_mlx_t *mlx);
