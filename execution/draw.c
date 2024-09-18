@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/16 09:39:38 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/18 18:56:03 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void initiate_angle_pos(my_mlx_t *mlx)
 {
-	int i;
-	int j;
+	unsigned int i;
+	unsigned int j;
 
 	i = -1;
-	while(++i < mlx->raws)
+	while(++i < mlx->rows)
 	{
 		j = -1;
 		while(++j < mlx->cols)
@@ -34,8 +34,8 @@ void initiate_angle_pos(my_mlx_t *mlx)
 			if (mlx->map[i][j] == 'N' || mlx->map[i][j] == 'E'
 				|| mlx->map[i][j] == 'S' || mlx->map[i][j] == 'W')
 			{
-				mlx->x = i * mlx->block_size + mlx->block_size / 2;
-				mlx->y = j * mlx->block_size + mlx->block_size / 2;
+				mlx->x = j * mlx->block_size + mlx->block_size / 2;
+				mlx->y = i * mlx->block_size + mlx->block_size / 2;
 			}
 		}
 	}
@@ -91,20 +91,22 @@ void draw_player(mlx_image_t *img,int x, int y, int radius, int color)
 
 void draw_mlx(my_mlx_t *mlx)
 {
-	// int i;
-	// int j;
+	// unsigned int i;
+	// unsigned int j;
 
 	// i = 0;
-	// while(i < mlx->raws)
+	// while(i < mlx->rows)
 	// {
 	// 	j = 0;
 	// 	while(j < mlx->cols)
 	// 	{
 	// 		if (mlx->map[i][j] == '1')
-	// 			color_the_block(mlx->img, i *mlx->block_size, j * mlx->block_size
+	// 			color_the_block(mlx->img, j *mlx->block_size, i * mlx->block_size
 	// 				, mlx->block_size, mlx->block_size, ft_pixel(0, 0, 0, 255));
-	// 		else
-	// 			color_the_block(mlx->img,i * mlx->block_size, j * mlx->block_size
+	// 		else if (mlx->map[i][j] == '0' || mlx->map[i][j] == 'N'
+	// 			|| mlx->map[i][j] == 'E' || mlx->map[i][j] == 'S'
+	// 				|| mlx->map[i][j] == 'W')
+	// 			color_the_block(mlx->img,j * mlx->block_size, i * mlx->block_size
 	// 				, mlx->block_size, mlx->block_size, ft_pixel(255, 255, 255, 255));
 	// 		j++;
 	// 	}

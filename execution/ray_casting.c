@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/09 11:45:58 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/18 18:56:21 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		int map_y = (int)(y_ray / mlx->block_size);
 		if (sin_a < 0)
 			map_y = (int)((y_ray - 1) / mlx->block_size);
-		if (mlx->map[map_y][map_x] == '1')
-			break;
+		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
+		{
+			if (mlx->map[map_y][map_x] == '1')
+				break;
+		}
 		x_ray += xstep;
 		y_ray += ystep;
 	}
@@ -80,7 +83,7 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 	if (cos_a > 0)
 		Ax = floor(Px / mlx->block_size) * mlx->block_size + mlx->block_size;
 	else
-		Ax = floor(Px / mlx->block_size) * mlx->block_size - 0.0001;
+		Ax = floor(Px / mlx->block_size) * mlx->block_size ;
 	Ay = Py + (Ax - Px) * tan_a;
 	xstep = mlx->block_size;
 	ystep = xstep * tan_a;
@@ -98,14 +101,18 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		int map_y = (int)(y_ray / mlx->block_size);
 		if (cos_a < 0)
 			map_x = (int)((x_ray - 1) / mlx->block_size);
-		if (mlx->map[map_y][map_x] == '1')
-			break;
+		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
+		{
+			if (mlx->map[map_y][map_x] == '1')
+				break;
+		}
 		x_ray += xstep;
 		y_ray += ystep;
 	}
 	v_distance = sqrt(pow(x_ray - mlx->x, 2) + pow(y_ray - mlx->y, 2));
 	return (v_distance);
 }
+
 
 void	ray_casting(my_mlx_t *mlx)
 {
