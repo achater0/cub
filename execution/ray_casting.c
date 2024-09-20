@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/18 18:56:21 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/20 10:32:59 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		int map_x = (int)(x_ray / mlx->block_size);
 		int map_y = (int)(y_ray / mlx->block_size);
 		if (sin_a < 0)
-			map_y = (int)((y_ray - 1) / mlx->block_size);
+			map_y = floor(((y_ray - 1) / mlx->block_size));
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
 			if (mlx->map[map_y][map_x] == '1')
@@ -100,7 +100,7 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		int map_x = (int)(x_ray / mlx->block_size);
 		int map_y = (int)(y_ray / mlx->block_size);
 		if (cos_a < 0)
-			map_x = (int)((x_ray - 1) / mlx->block_size);
+			map_x = floor(((x_ray - 1) / mlx->block_size));
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
 			if (mlx->map[map_y][map_x] == '1')
@@ -165,7 +165,7 @@ void	ray_casting(my_mlx_t *mlx)
     	// }
 		// wall randering
 
-		double wall_height = (mlx->width / correct_distance) * 110;
+		double wall_height = (mlx->width / correct_distance) * 80;
 		double wall_start = (mlx->width / 2) - (wall_height / 2);
 		double wall_end = wall_start + wall_height;
 		double y = wall_start - 1;
