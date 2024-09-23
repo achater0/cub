@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/20 10:32:59 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:06:52 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	ray_casting(my_mlx_t *mlx)
     	// i = 0;
     	// while (i <= steps)
     	// {
-    	//     if (x >= 0 && x < mlx->width && y >= 0 && y < mlx->width)
+    	//     if (x >= 0 && x < mlx->width && y >= 0 && y < mlx->height)
     	//         mlx_put_pixel(mlx->img, round(x), round(y), ft_pixel(255, 0, 0, 255));
     	//     else
     	//         break;
@@ -165,25 +165,24 @@ void	ray_casting(my_mlx_t *mlx)
     	// }
 		// wall randering
 
-		double wall_height = (mlx->width / correct_distance) * 80;
+		double wall_height = (mlx->width / correct_distance) * mlx->block_size;
 		double wall_start = (mlx->width / 2) - (wall_height / 2);
 		double wall_end = wall_start + wall_height;
 		double y = wall_start - 1;
-		// int x = 0;
-		// while(x < wall_start)
-		// {
-		//     mlx_put_pixel(mlx->img, screen_x, x, ft_pixel(0, 0, 0, 255));
-		//     x++;
-		// }
-		// x = wall_end;
-		// while(x < mlx->width)
-		// {
-		//     mlx_put_pixel(mlx->img, screen_x, x, ft_pixel(0, 255, 255, 255));
-		//     x++;
-		// }
+		int x = 0;
+		while(x < wall_start)
+		{
+		    mlx_put_pixel(mlx->img, screen_x, x, ft_pixel(10, 20, 30, 255));
+		    x++;
+		}
 		while (++y < wall_end)
 			if (y >= 0 && y < mlx->width)
-				mlx_put_pixel(mlx->img, screen_x, y, ft_pixel(0, 255, 255, 255));
+				mlx_put_pixel(mlx->img, screen_x, y, ft_pixel(40, 35, 10, 127));
+		while(y < mlx->width)
+		{
+		    mlx_put_pixel(mlx->img, screen_x, y, ft_pixel(0, 192, 20, 32));
+		    y++;
+		}
 		a += step;
 		ray_count++;
 		screen_x++;

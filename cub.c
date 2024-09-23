@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/09/19 17:11:39 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:05:18 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,32 +57,8 @@ int main(int ac, char **av)
 		}
 
 		mlx->block_size = 80;
-		mlx->width = 1200;
-		mlx->height = 1200;
-		// mlx->map = malloc(sizeof(char *) * (mlx->height / mlx->block_size));
-		// i = 0;
-		// while (i < mlx->height / mlx->block_size)
-		// {
-		// 	mlx->map[i] = malloc(sizeof(char) * 10);
-		// 	j = 0;
-		// 	while (j < mlx->width / mlx->block_size)
-		// 	{
-		// 		if (i == 0 || i == 9)
-		// 			mlx->map[i][j] = '1';
-		// 		else if (j == 0 || j == 9)
-		// 			mlx->map[i][j] = '1';
-		// 		else
-		// 			mlx->map[i][j] = '0';
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
-		// // mlx->map[0][0] = '0';
-		// mlx->map[5][5] = 'N';
-		// mlx->map[5][6] = '1';
-		// mlx->map[6][5] = '1';
-
-
+		mlx->width = 1500;
+		mlx->height = 1500;
 		main_fct(mlx);
 		// return (0);
 	}

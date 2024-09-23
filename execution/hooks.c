@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/09/20 10:34:38 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/22 16:03:46 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void move(my_mlx_t *mlx, double angle)
 	int i;
 	int j;
 
-	x = mlx->x + mlx->block_size / 20 * cos((mlx->angle + angle) * M_PI / 180);
-	y = mlx->y + mlx->block_size / 20 * sin((mlx->angle + angle) * M_PI / 180);
+	x = mlx->x + 5.0 * cos((mlx->angle + angle) * M_PI / 180);
+	y = mlx->y + 5.0 * sin((mlx->angle + angle) * M_PI / 180);
 	j = (int)(x / mlx->block_size);
 	i = (int)(y / mlx->block_size);
 	if (mlx->map[i][j] != '1' &&

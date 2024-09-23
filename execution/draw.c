@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/20 10:32:51 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:05:41 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void draw_mlx(my_mlx_t *mlx)
 
 void	main_fct(my_mlx_t *mlx)
 {
-	mlx->mlx = mlx_init(mlx->height, mlx->width,"cub3d", 0);
-	mlx->img = mlx_new_image(mlx->mlx, mlx->height, mlx->width);
+	mlx->mlx = mlx_init(mlx->width, mlx->height,"cub3d", 0);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	initiate_angle_pos(mlx);
 	draw_mlx(mlx);
 	mlx_loop_hook(mlx->mlx, hook_fct, mlx);
