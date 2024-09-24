@@ -7,7 +7,7 @@ LIBS = -L /Users/achater/.brew/lib -lglfw -framework Cocoa -framework OpenGL -fr
 NAME = cub3D
 
 SRCS = cub.c ./execution/draw.c ./execution/hooks.c ./execution/ray_casting.c parsing/error_handle.c parsing/get_layout.c \
-	parsing/get_next_line.c parsing/check_textures.c parsing/extract_map.c
+	parsing/get_next_line.c parsing/check_textures.c parsing/extract_map.c execution/mini_map.c
 
 OBJS = $(SRCS:.c=.o)
 

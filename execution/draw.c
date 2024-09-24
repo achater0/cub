@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/23 12:05:41 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:11:51 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void draw_mlx(my_mlx_t *mlx)
 	// }
 	// draw_player(mlx->img, mlx->x, mlx->y , 10, ft_pixel(255, 0, 0, 255));
 	ray_casting(mlx);
+	draw_mini_map(mlx);
 }
 
 void	main_fct(my_mlx_t *mlx)
