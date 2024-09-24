@@ -3,5 +3,6 @@
 		"memory.h": "c",
 		"stdlib.h": "c",
 		"locale": "cpp"
-	}
+	},
+	"cmake.sourceDirectory": "/Users/achater/Desktop/cub/MLX42"
 }

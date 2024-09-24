@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/23 14:11:51 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:48:47 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,29 @@ void draw_player(mlx_image_t *img,int x, int y, int radius, int color)
 		}
 		dx++;
 	}
-	if (radius == 10)
+	if (radius == 5)
 		draw_player(img,x, y, 1, ft_pixel(0, 255, 0, 255));
 }
+
+// void draw_player(my_mlx_t *mlx, int x, int y, int color)
+// {
+// 	double a;
+// 	double b;
+// 	double c;
+// 	double a1;
+// 	double b1;
+// 	double c1;
+// 	double x;
+
+// 	a = x + 5 * cos(mlx->angle * M_PI / 180);
+// 	a1 = y + 5 * sin(mlx->angle * M_PI / 180);
+// 	x = 270 - mlx->angle;
+// 	normalize_angle(&x);
+// 	b = x + 3 * cos(x * M_PI / 180);
+// 	b1 = y + 3 * sin(x * M_PI / 180);
+// 	c = x - 3 * cos(x * M_PI / 180);
+// 	c1 = y - 3 * sin(x * M_PI / 180);
+// }
 
 
 
