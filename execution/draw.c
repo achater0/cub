@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/24 14:48:47 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:47:48 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void initiate_angle_pos(my_mlx_t *mlx)
 	unsigned int j;
 
 	i = -1;
+	mlx->hidden = 1;
 	while(++i < mlx->rows)
 	{
 		j = -1;
@@ -65,47 +66,48 @@ void color_the_block(mlx_image_t *img,int i, int j, int width, int height, int c
 	}
 }
 
-void draw_player(mlx_image_t *img,int x, int y, int radius, int color)
+void draw_player(my_mlx_t *mlx,int x, int y, int radius, int color)
 {
 	int	cx = x;
 	int	cy = y;
 	int	dx = -radius;
 	int	dy;
+	double start_angle;
+	double step;
+	double angle;
+	int i ;
+	double a;
+	double b;
 
+	start_angle = mlx->angle - 30;
+	step = 1;
+	angle = start_angle;
+	while(angle < 60 + start_angle)
+	{
+		i = 0;
+		a = x;
+		b = y;
+		while(i < 25)
+		{
+			a += cos(angle * M_PI / 180);
+			b += sin(angle * M_PI / 180);
+			mlx_put_pixel(mlx->img, a, b, ft_pixel(205, 205, 180, 255));
+			i++;
+		}
+		angle += step;
+	}
 	while (dx <= radius)
 	{
 		dy = -radius;
 		while (dy <= radius)
 		{
 			if (dx * dx + dy * dy <= radius * radius)
-				mlx_put_pixel(img, cx + dx, cy + dy, color);
+				mlx_put_pixel(mlx->img, cx + dx, cy + dy, color);
 			dy++;
 		}
 		dx++;
 	}
-	if (radius == 5)
-		draw_player(img,x, y, 1, ft_pixel(0, 255, 0, 255));
 }
-
-// void draw_player(my_mlx_t *mlx, int x, int y, int color)
-// {
-// 	double a;
-// 	double b;
-// 	double c;
-// 	double a1;
-// 	double b1;
-// 	double c1;
-// 	double x;
-
-// 	a = x + 5 * cos(mlx->angle * M_PI / 180);
-// 	a1 = y + 5 * sin(mlx->angle * M_PI / 180);
-// 	x = 270 - mlx->angle;
-// 	normalize_angle(&x);
-// 	b = x + 3 * cos(x * M_PI / 180);
-// 	b1 = y + 3 * sin(x * M_PI / 180);
-// 	c = x - 3 * cos(x * M_PI / 180);
-// 	c1 = y - 3 * sin(x * M_PI / 180);
-// }
 
 
 
@@ -143,6 +145,7 @@ void	main_fct(my_mlx_t *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	initiate_angle_pos(mlx);
 	draw_mlx(mlx);
+	mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(mlx->mlx, hook_fct, mlx);
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 	// // mlx_close_window(mlx);

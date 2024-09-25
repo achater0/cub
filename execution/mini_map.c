@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:13:31 by achater           #+#    #+#             */
-/*   Updated: 2024/09/24 16:18:08 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:50:47 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_mini_map(my_mlx_t *mlx)
 				if (mlx->map[(int)j2 / mlx->block_size][(int)i2 / mlx->block_size] == '1')
 					mlx_put_pixel(mlx->img, i, j, ft_pixel(0, 0, 0, 255));
 				else
-					mlx_put_pixel(mlx->img, i, j, ft_pixel(255, 255, 255, 255));
+					mlx_put_pixel(mlx->img, i, j, ft_pixel(255, 255, 255, 240));
 			}
 			else
 				mlx_put_pixel(mlx->img, i, j, ft_pixel(128, 128, 128, 255));
@@ -46,5 +46,5 @@ void	draw_mini_map(my_mlx_t *mlx)
 	double x = (mlx->x - i1) / mlx->block_size * 25;
 	double y = (mlx->y - j1) / mlx->block_size * 25;
 
-	draw_player(mlx->img, x, y , 5, ft_pixel(255, 0, 0, 255));
+	draw_player(mlx, x, y , 5, ft_pixel(87, 125, 47, 255));
 }

@@ -51,6 +51,7 @@ typedef struct my_mlx_s
 	unsigned int rows;
 	int block_size;
 	t_texture *texture;
+	int hidden;
 } my_mlx_t;
 
 void	main_fct(my_mlx_t *mlx);
@@ -59,7 +60,7 @@ void	draw_mlx(my_mlx_t *mlx);
 void	ray_casting(my_mlx_t *mlx);
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void	normalize_angle(double *angle);
-void draw_player(mlx_image_t *img,int x, int y, int radius, int color);
+void draw_player(my_mlx_t *mlx,int x, int y, int radius, int color);
 void	draw_mini_map(my_mlx_t *mlx);
 void color_the_block(mlx_image_t *img,int i, int j, int width, int height, int color);
 

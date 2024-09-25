@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/09/23 16:04:26 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:37:29 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,67 @@ void move(my_mlx_t *mlx, double angle)
 		mlx->y = y;
 	}
 }
+
+void	key_fct(struct mlx_key_data key, void *param)
+{
+	my_mlx_t *mlx;
+
+	mlx = (my_mlx_t *)param;
+	if (key.key == MLX_KEY_P && key.action == MLX_RELEASE)
+	{
+		if (mlx->hidden == 0)
+		{
+			mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
+			mlx->hidden = 1;
+		}
+		else
+		{
+			mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_NORMAL);
+			mlx->hidden = 0;
+		}
+	}
+}
+
+void mouse_hook(my_mlx_t *mlx)
+{
+	int x;
+	int y;
+
+	mlx_get_mouse_pos(mlx->mlx, &x, &y);
+	if (mlx->hidden)
+	{
+		mlx_set_mouse_pos(mlx->mlx, mlx->height / 2, mlx->width / 2);
+		if (x < 0 || x > mlx->width)
+			return ;
+		mlx->angle -= (mlx->width / 2 - x) * 180 / mlx->width / 3;
+		normalize_angle(&mlx->angle);
+	}
+	mlx_key_hook(mlx->mlx, key_fct, mlx);
+	// if (mlx_is_key_down(mlx->mlx, MLX_KEY_P))
+	// {
+	// 	if (mlx->hidden == 0)
+	// 	{
+	// 		mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
+	// 		mlx->hidden = 1;
+	// 	}
+	// 	else
+	// 	{
+	// 		mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_NORMAL);
+	// 		mlx->hidden = 0;
+	// 	}
+	// }
+}
+
 void hook_fct(void *param)
 {
 	my_mlx_t *mlx;
 
 	mlx = (my_mlx_t *)param;
+	mouse_hook(mlx);
 	if (mlx_is_key_down(mlx->mlx, 256))
 		mlx_close_window(mlx->mlx);
+	if (!mlx->hidden)
+		return ;
 	if (mlx_is_key_down(mlx->mlx, 262))
 		rotate(mlx, 2);
 	if (mlx_is_key_down(mlx->mlx, 263))
@@ -67,8 +121,7 @@ void hook_fct(void *param)
 	if (mlx_is_key_down(mlx->mlx, 68))
 		move(mlx, 90);
 	mlx_delete_image(mlx->mlx, mlx->img);
-	mlx->img = mlx_new_image(mlx->mlx, mlx->height, mlx->width);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	draw_mlx(mlx);
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
-
 }
