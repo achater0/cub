@@ -66,6 +66,7 @@ void	normalize_angle(double *angle);
 void draw_player(my_mlx_t *mlx,int x, int y, int radius, int color);
 void	draw_mini_map(my_mlx_t *mlx);
 void color_the_block(mlx_image_t *img,int i, int j, int width, int height, int color);
+void	open_close_door(my_mlx_t *mlx);
 
 
 void	error_mssg(int flag);

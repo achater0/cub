@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:13:31 by achater           #+#    #+#             */
-/*   Updated: 2024/09/25 18:25:42 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:52:19 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	draw_mini_map(my_mlx_t *mlx)
 			{
 				if (mlx->map[(int)j2 / mlx->block_size][(int)i2 / mlx->block_size] == '1')
 					mlx_put_pixel(mlx->img, i, j, ft_pixel(0, 0, 0, 255));
+				else if (mlx->map[(int)j2 / mlx->block_size][(int)i2 / mlx->block_size] == 'C')
+					mlx_put_pixel(mlx->img, i, j, ft_pixel(255, 0, 0, 255));
+				else if (mlx->map[(int)j2 / mlx->block_size][(int)i2 / mlx->block_size] == 'O')
+					mlx_put_pixel(mlx->img, i, j, ft_pixel(0, 255, 0, 255));
 				else
 					mlx_put_pixel(mlx->img, i, j, ft_pixel(255, 255, 255, 240));
 			}

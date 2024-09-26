@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/09/25 18:27:50 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:48:42 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	key_fct(struct mlx_key_data key, void *param)
 			mlx->hidden = 0;
 		}
 	}
+	if (key.key == MLX_KEY_SPACE && key.action == MLX_RELEASE)
+		open_close_door(mlx);
 }
 
 void mouse_hook(my_mlx_t *mlx)
@@ -107,6 +109,7 @@ void hook_fct(void *param)
 		move(mlx, 270);
 	if (mlx_is_key_down(mlx->mlx, 68))
 		move(mlx, 90);
+	mlx_key_hook(mlx->mlx, key_fct, mlx);
 	mlx_delete_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	draw_mlx(mlx);
