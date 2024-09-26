@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/09/25 14:37:29 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:27:50 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,6 @@ void mouse_hook(my_mlx_t *mlx)
 		normalize_angle(&mlx->angle);
 	}
 	mlx_key_hook(mlx->mlx, key_fct, mlx);
-	// if (mlx_is_key_down(mlx->mlx, MLX_KEY_P))
-	// {
-	// 	if (mlx->hidden == 0)
-	// 	{
-	// 		mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
-	// 		mlx->hidden = 1;
-	// 	}
-	// 	else
-	// 	{
-	// 		mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_NORMAL);
-	// 		mlx->hidden = 0;
-	// 	}
-	// }
 }
 
 void hook_fct(void *param)

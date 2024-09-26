@@ -52,6 +52,9 @@ typedef struct my_mlx_s
 	int block_size;
 	t_texture *texture;
 	int hidden;
+	double x_h;
+	double y_v;
+	double wall_inter;
 } my_mlx_t;
 
 void	main_fct(my_mlx_t *mlx);

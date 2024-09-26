@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/23 15:25:26 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:47:50 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		y_ray += ystep;
 	}
 	h_distance = sqrt(pow(x_ray - mlx->x, 2) + pow(y_ray - mlx->y, 2));
+	mlx->x_h = x_ray;
 	return (h_distance);
 }
 
@@ -110,6 +111,7 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		y_ray += ystep;
 	}
 	v_distance = sqrt(pow(x_ray - mlx->x, 2) + pow(y_ray - mlx->y, 2));
+	mlx->y_v = y_ray;
 	return (v_distance);
 }
 
@@ -136,7 +138,16 @@ void	ray_casting(my_mlx_t *mlx)
 		normalize_angle(&a);
 		h_distance = horizontal_distance(mlx, Px, Py, a);
 		v_distance = vertical_distance(mlx, Px, Py, a);
-		distance = fmin(h_distance, v_distance);
+		if (h_distance < v_distance)
+		{
+			distance = h_distance;
+			mlx->wall_inter = mlx->x_h;
+		}
+		else
+		{
+			distance = v_distance;
+			mlx->wall_inter = mlx->y_v;
+		}
 		correct_distance = distance * cos((a - mlx->angle) * M_PI / 180);
 
     // Bresenham's line algorithm to draw the line from (start_x, start_y) to (end_x, end_y)
