@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/09/23 12:05:18 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/27 17:49:37 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int main(int ac, char **av)
 		}
 
 		mlx->block_size = 80;
-		mlx->width = 1500;
-		mlx->height = 1500;
+		mlx->width = 800;
+		mlx->height = 800;
 		main_fct(mlx);
 		// return (0);
 	}

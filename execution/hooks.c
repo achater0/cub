@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/09/26 15:48:42 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/27 15:35:46 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,16 @@ void move(my_mlx_t *mlx, double angle)
 		&& mlx->map[(int)(y+ 10)/mlx->block_size][(int)(x)/mlx->block_size] != '1'
 		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x- 10)/mlx->block_size] != '1'
 		&& mlx->map[(int)(y)/mlx->block_size][(int)(x- 10)/mlx->block_size] != '1'
-		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x)/mlx->block_size] != '1')
+		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x)/mlx->block_size] != '1'
+		&& mlx->map[i][j] != 'C'
+		&& mlx->map[(int)(mlx->y / mlx->block_size)][j] != 'C'
+		&& mlx->map[i][(int)(mlx->x / mlx->block_size)] != 'C'
+		&& mlx->map[(int)(y+ 10) / mlx->block_size][(int)(x+ 10)/ mlx->block_size] != 'C'
+		&& mlx->map[(int)(y)/mlx->block_size][(int)(x+ 10)/mlx->block_size] != 'C'
+		&& mlx->map[(int)(y+ 10)/mlx->block_size][(int)(x)/mlx->block_size] != 'C'
+		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x- 10)/mlx->block_size] != 'C'
+		&& mlx->map[(int)(y)/mlx->block_size][(int)(x- 10)/mlx->block_size] != 'C'
+		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x)/mlx->block_size] != 'C')
 	{
 		mlx->x = x;
 		mlx->y = y;

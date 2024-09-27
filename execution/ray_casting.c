@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/26 14:47:50 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:01:01 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		xstep *= -1;
 	x_ray = Ax;
 	y_ray = Ay;
-	while(x_ray >= 0 && y_ray >= 0 && x_ray < mlx->height && y_ray < mlx->width)
+	while(x_ray >= 0 && y_ray >= 0 && x_ray < (mlx->cols * mlx->block_size) && y_ray < (mlx->rows * mlx->block_size))
 	{
 		int map_x = (int)(x_ray / mlx->block_size);
 		int map_y = (int)(y_ray / mlx->block_size);
@@ -56,7 +56,7 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 			map_y = floor(((y_ray - 1) / mlx->block_size));
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
-			if (mlx->map[map_y][map_x] == '1')
+			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
 				break;
 		}
 		x_ray += xstep;
@@ -96,7 +96,7 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		ystep *= -1;
 	x_ray = Ax;
 	y_ray = Ay;
-	while(x_ray >= 0 && y_ray >= 0 && x_ray < mlx->height && y_ray < mlx->width)
+	while(x_ray >= 0 && y_ray >= 0 && x_ray < (mlx->cols * mlx->block_size) && y_ray < (mlx->rows * mlx->block_size))
 	{
 		int map_x = (int)(x_ray / mlx->block_size);
 		int map_y = (int)(y_ray / mlx->block_size);
@@ -104,7 +104,7 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 			map_x = floor(((x_ray - 1) / mlx->block_size));
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
-			if (mlx->map[map_y][map_x] == '1')
+			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
 				break;
 		}
 		x_ray += xstep;
