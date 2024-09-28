@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/27 18:01:01 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/28 11:32:34 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 	}
 	h_distance = sqrt(pow(x_ray - mlx->x, 2) + pow(y_ray - mlx->y, 2));
 	mlx->x_h = x_ray;
+	mlx->y_h = y_ray;
 	return (h_distance);
 }
 
@@ -111,6 +112,7 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		y_ray += ystep;
 	}
 	v_distance = sqrt(pow(x_ray - mlx->x, 2) + pow(y_ray - mlx->y, 2));
+	mlx->x_v = x_ray;
 	mlx->y_v = y_ray;
 	return (v_distance);
 }
@@ -118,7 +120,6 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 
 void	ray_casting(my_mlx_t *mlx)
 {
-	// normalize_angle(&mlx->angle);
 	double	fov = 60;
 	double	start_angle = mlx->angle - (fov / 2);
 	double	step = (double)fov / mlx->width;
@@ -142,56 +143,46 @@ void	ray_casting(my_mlx_t *mlx)
 		{
 			distance = h_distance;
 			mlx->wall_inter = mlx->x_h;
+			mlx->wall_inter_x = mlx->x_h;
+			mlx->wall_inter_y = mlx->y_h;
+			mlx->is_vertical = 0;
 		}
 		else
 		{
 			distance = v_distance;
 			mlx->wall_inter = mlx->y_v;
+			mlx->wall_inter_x = mlx->x_v;
+			mlx->wall_inter_y = mlx->y_v;
+			mlx->is_vertical = 1;
 		}
 		correct_distance = distance * cos((a - mlx->angle) * M_PI / 180);
-
-    // Bresenham's line algorithm to draw the line from (start_x, start_y) to (end_x, end_y)
-    	// double x_increment, y_increment;
-    	// double x, y;
-    	// double delta_x, delta_y;
-    	// int steps, i;
-
-    	// delta_x = distance * cos(a * M_PI / 180);
-    	// delta_y = distance * sin(a * M_PI / 180);
-    	// steps = (int)fmax(fabs(delta_x), fabs(delta_y));
-    	// x_increment = delta_x / steps;
-    	// y_increment = delta_y / steps;
-    	// x = Px;
-    	// y = Py;
-    	// i = 0;
-    	// while (i <= steps)
-    	// {
-    	//     if (x >= 0 && x < mlx->width && y >= 0 && y < mlx->height)
-    	//         mlx_put_pixel(mlx->img, round(x), round(y), ft_pixel(255, 0, 0, 255));
-    	//     else
-    	//         break;
-    	//     x += x_increment;
-    	//     y += y_increment;
-    	//     i++;
-    	// }
-		// wall randering
-
-		double wall_height = (mlx->width / correct_distance) * mlx->block_size;
-		double wall_start = (mlx->width / 2) - (wall_height / 2);
+		double wall_height = (mlx->height / correct_distance) * mlx->block_size;
+		double wall_start = (mlx->height / 2) - (wall_height / 2);
 		double wall_end = wall_start + wall_height;
 		double y = wall_start - 1;
+		//! ==== TEXTURE MAPPING ===== !//
+		int				tex_x;
+		int				tex_y;
+		unsigned int	pixel_color;
+
+		get_which_texture_side(mlx, mlx->wall_inter_x, mlx->wall_inter_y);
+		tex_x = get_text_x(mlx, mlx->wall_inter);
 		int x = 0;
 		while(x < wall_start)
 		{
-		    mlx_put_pixel(mlx->img, screen_x, x, ft_pixel(10, 20, 30, 255));
-		    x++;
+			mlx_put_pixel(mlx->img, screen_x, x, mlx->texture->c_clr);
+			x++;
 		}
 		while (++y < wall_end)
-			if (y >= 0 && y < mlx->width)
-				mlx_put_pixel(mlx->img, screen_x, y, ft_pixel(40, 35, 10, 127));
-		while(y < mlx->width)
 		{
-		    mlx_put_pixel(mlx->img, screen_x, y, ft_pixel(0, 192, 20, 32));
+			tex_y = get_tex_y(mlx, y, wall_height);
+			pixel_color = get_texture_color(mlx->curr_texture , tex_x, tex_y);
+			if (y >= 0 && y < mlx->height)
+				adjust_color(mlx->img, screen_x, y, pixel_color);
+		}
+		while(y < mlx->height)
+		{
+			mlx_put_pixel(mlx->img, screen_x, y, mlx->texture->f_clr);
 		    y++;
 		}
 		a += step;

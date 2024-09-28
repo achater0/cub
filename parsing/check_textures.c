@@ -6,7 +6,7 @@
 /*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:58:19 by mstaali           #+#    #+#             */
-/*   Updated: 2024/09/17 10:50:41 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/09/26 00:42:19 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,40 +65,18 @@ unsigned int	rgb_to_uint(char *component)
 void	fill_texture(t_texture *texture, char **components)
 {
 	if (!ft_strcmp(components[0], "NO"))
-		texture->no = ft_strdup(components[1]);
+		texture->no_tex = mlx_load_png(components[1]);
 	else if (!ft_strcmp(components[0], "SO"))
-		texture->so = ft_strdup(components[1]);
+		texture->so_tex = mlx_load_png(components[1]);
 	else if (!ft_strcmp(components[0], "WE"))
-		texture->we = ft_strdup(components[1]);
+		texture->we_tex = mlx_load_png(components[1]);
 	else if (!ft_strcmp(components[0], "EA"))
-		texture->ea = ft_strdup(components[1]);
+		texture->ea_tex = mlx_load_png(components[1]);
 	else if (!ft_strcmp(components[0], "F"))
 		texture->f_clr = rgb_to_uint(components[1]);
 	else if (!ft_strcmp(components[0], "C"))
 		texture->c_clr = rgb_to_uint(components[1]);
 	ft_dbl_free(components);
-}
-
-void	check_paths(my_mlx_t *mlx, t_texture *texture, char **path)
-{
-	if (!ft_strcmp(path[0], "NO") || !ft_strcmp(path[0], "SO")
-		|| !ft_strcmp(path[0], "EA") || !ft_strcmp(path[0], "WE"))
-	{
-		if (access(path[1], F_OK) == 0)
-			return ;
-		else
-		{
-			free(mlx);
-			free(texture);
-			ft_dbl_free(path);
-			if (errno == ENOENT)
-				error_mssg(NOT_EXIST);
-			else if (errno == EACCES)
-				error_mssg(PERMISSION);
-			else
-				error_mssg(CHECK_FILE);
-		}
-	}
 }
 
 void	check_textures(my_mlx_t *mlx, char **layout)
@@ -128,7 +106,6 @@ void	check_textures(my_mlx_t *mlx, char **layout)
 			ft_dbl_free(components);
 			error_mssg(TEXTURE_ARG);
 		}
-		check_paths(mlx, texture, components);
 		fill_texture(texture, components);
 	}
 	mlx->texture = texture;

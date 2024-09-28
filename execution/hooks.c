@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/09/27 15:35:46 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/28 11:31:57 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void mouse_hook(my_mlx_t *mlx)
 	mlx_get_mouse_pos(mlx->mlx, &x, &y);
 	if (mlx->hidden)
 	{
-		mlx_set_mouse_pos(mlx->mlx, mlx->height / 2, mlx->width / 2);
+		mlx_set_mouse_pos(mlx->mlx, mlx->width / 2, mlx->height / 2);
 		if (x < 0 || x > mlx->width)
 			return ;
 		mlx->angle -= (mlx->width / 2 - x) * 180 / mlx->width / 3;

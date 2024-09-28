@@ -1,13 +1,13 @@
-NO textures/example_no.webp
+NO textures/example_no.png
 
 
-SO textures/example_so.webp
+SO textures/example_so.png
 
 
-WE textures/example_we.webp
+WE textures/example_we.png
 
 
-EA textures/example_ea.webp
+EA textures/example_ea.png
 
 
 F 9,100,90
@@ -27,6 +27,6 @@ C 225,30,0
 11000101000001
 10000001000001
 10010010000001
-11000101000001
+110001011C1001
 100000000N0001
 11111111111111
