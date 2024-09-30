@@ -67,6 +67,7 @@ typedef struct my_mlx_s
 	double			wall_inter;
 	t_texture		*texture;
 	int	hidden;
+	int door;
 } my_mlx_t;
 
 void			main_fct(my_mlx_t *mlx);

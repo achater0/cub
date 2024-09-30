@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/28 11:32:34 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/30 20:48:00 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
 			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
+			{
+				if(mlx->map[map_y][map_x] == 'C')
+					mlx->door = 1;
+				else
+					mlx->door = 0;
 				break;
+			}
 		}
 		x_ray += xstep;
 		y_ray += ystep;
@@ -106,7 +112,13 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
 			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
+			{
+				if(mlx->map[map_y][map_x] == 'C')
+					mlx->door = 1;
+				else
+					mlx->door = 0;
 				break;
+			}
 		}
 		x_ray += xstep;
 		y_ray += ystep;
