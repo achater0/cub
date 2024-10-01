@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/09/30 20:48:00 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/01 16:19:03 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,11 @@ void	ray_casting(my_mlx_t *mlx)
 		correct_distance = distance * cos((a - mlx->angle) * M_PI / 180);
 		double wall_height = (mlx->height / correct_distance) * mlx->block_size;
 		double wall_start = (mlx->height / 2) - (wall_height / 2);
+		if (wall_start < 0.0)
+			wall_start = 0.0;
 		double wall_end = wall_start + wall_height;
+		if (wall_end > mlx->height)
+			wall_end = mlx->height;
 		double y = wall_start - 1;
 		//! ==== TEXTURE MAPPING ===== !//
 		int				tex_x;
