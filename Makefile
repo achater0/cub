@@ -8,7 +8,7 @@ NAME = cub3D
 
 SRCS = cub.c ./execution/draw.c ./execution/hooks.c ./execution/ray_casting.c parsing/error_handle.c parsing/get_layout.c \
 	parsing/get_next_line.c parsing/check_textures.c parsing/extract_map.c execution/mini_map.c parsing/textures.c \
-	execution/doors_handler.c
+	execution/doors_handler.c parsing/frames.c
 OBJS = $(SRCS:.c=.o)
 
 all: libft_make pre $(NAME)

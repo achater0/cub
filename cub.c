@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/09/29 11:54:42 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:26:29 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void f()
 
 int main(int ac, char **av)
 {
-	unsigned int i;
-	unsigned int j;
 	my_mlx_t	*mlx;
 
 	// atexit(f);
@@ -45,21 +43,10 @@ int main(int ac, char **av)
 		check_extension(av[1]);
 		mlx = malloc(sizeof(my_mlx_t));
 		get_layout(mlx, av[1]);
-		i = -1;
-		printf("{cols : %d}\n", mlx->cols);
-		printf("{rows : %d}\n", mlx->rows);
-		while (++i < mlx->rows)
-		{
-			j = -1;
-			while (++j < mlx->cols)
-				printf("%c", mlx->map[i][j]);
-			printf("\n");
-		}
-
 		mlx->block_size = 80;
 		mlx->width = 1280;
 		mlx->height = 720;
 		main_fct(mlx);
-		// return (0);
+		return (0);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:12:34 by mstaali           #+#    #+#             */
-/*   Updated: 2024/10/01 16:17:35 by achater          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:25:56 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ double	get_tex_y(my_mlx_t *mlx, double y, double wall_height)
 	double	tex_y;
 	double	wall_y;
 
-	wall_y = y - ((mlx->height / 2) - (wall_height / 2));
+	wall_y = y - (( mlx->height / 2) - (wall_height / 2));
 	tex_y = (wall_y * mlx->curr_texture->height) / wall_height;
 	return (tex_y);
 }

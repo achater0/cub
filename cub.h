@@ -26,7 +26,9 @@ typedef enum e_error {
 	CHECK_FILE,
 	COLORS,
 	WALLS,
-	PLAYER_NOT_FOUND
+	PLAYER_NOT_FOUND,
+	DOORS,
+	FRAMES
 }	t_error;
 
 typedef struct s_texture
@@ -35,18 +37,44 @@ typedef struct s_texture
 	char			*so;
 	char			*we;
 	char			*ea;
+	char			*door;
 	unsigned int	f_clr;
 	unsigned int	c_clr;
 	mlx_texture_t	*no_tex;
 	mlx_texture_t	*so_tex;
 	mlx_texture_t	*we_tex;
 	mlx_texture_t	*ea_tex;
+	mlx_texture_t	*door_tex;
 }	t_texture;
+
+typedef struct s_frame
+{
+	mlx_image_t			*init_state;
+	mlx_image_t			*animate_1;
+	mlx_image_t			*animate_2;
+	mlx_image_t			*animate_3;
+	mlx_image_t			*animate_4;
+	mlx_image_t			*animate_5;
+	mlx_image_t			*animate_6;
+	mlx_texture_t		*tex_init_state;
+	mlx_texture_t		*tex_animate_1;
+	mlx_texture_t		*tex_animate_2;
+	mlx_texture_t		*tex_animate_3;
+	mlx_texture_t		*tex_animate_4;
+	mlx_texture_t		*tex_animate_5;
+	mlx_texture_t		*tex_animate_6;
+}	t_frame;
 
 typedef struct my_mlx_s
 {
 	mlx_t *mlx;
-	mlx_image_t *img;
+	mlx_image_t 	*img;
+	t_frame			*frames;
+	mlx_texture_t	**sprite_textures;
+	int				num_frames;
+	int				curr_frame;
+	int				is_animated;
+	double			last_frame_time;
 	char **map;
 	double angle;
 	double x;
@@ -66,9 +94,11 @@ typedef struct my_mlx_s
 	double			wall_inter_y;
 	double			wall_inter;
 	t_texture		*texture;
+	int	door;
+	int v_door;
+	int h_door;
 	int	hidden;
-	int door;
-} my_mlx_t;
+}	my_mlx_t;
 
 void			main_fct(my_mlx_t *mlx);
 void 			hook_fct(void *param);
@@ -93,5 +123,6 @@ unsigned int	get_texture_color(mlx_texture_t *tex, unsigned int x, unsigned int 
 void			adjust_color(mlx_image_t *image, unsigned int x, unsigned int y, unsigned int c);
 double			get_text_x(my_mlx_t *mlx, double wall_inter);
 double			get_tex_y(my_mlx_t *mlx, double y, double wall_height);
-
+int				is_valid_doors(char **layout);
+void			load_sprite_frames(my_mlx_t *mlx);
 #endif

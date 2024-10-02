@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/09/27 17:57:21 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:42:11 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,11 @@ void	main_fct(my_mlx_t *mlx)
 	mlx->mlx = mlx_init(mlx->width, mlx->height,"cub3d", 0);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	initiate_angle_pos(mlx);
+	load_sprite_frames(mlx);
 	draw_mlx(mlx);
+	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 	mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(mlx->mlx, hook_fct, mlx);
-	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 	// // mlx_close_window(mlx);
 	mlx_loop(mlx->mlx);
 	// mlx_terminate(mlx->mlx);

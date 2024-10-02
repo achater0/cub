@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:13:31 by achater           #+#    #+#             */
-/*   Updated: 2024/09/29 11:59:19 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/02 11:50:24 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	draw_mini_map(my_mlx_t *mlx)
 
 	i1 = mlx->x - 5 * mlx->block_size;
 	j1= mlx->y - 5 * mlx->block_size;
-	while(j < 10 * 25)
+	while(j < 10 * 20)
 	{
 		i = 0;
-		while(i < 10 * 25)
+		while(i < 10 * 20)
 		{
-			i2 = i1 + (double)i / 25 * mlx->block_size;
-			j2 = j1 + (double)j / 25 * mlx->block_size;
+			i2 = i1 + (double)i / 20 * mlx->block_size;
+			j2 = j1 + (double)j / 20 * mlx->block_size;
 			if (j2 >= 0 && j2 < (double)mlx->rows * mlx->block_size && i2 >= 0 && i2 < (double)mlx->cols * mlx->block_size)
 			{
 				if (mlx->map[(int)j2 / mlx->block_size][(int)i2 / mlx->block_size] == '1')
@@ -47,8 +47,8 @@ void	draw_mini_map(my_mlx_t *mlx)
 		}
 		j++;
 	}
-	double x = (mlx->x - i1) / mlx->block_size * 25;
-	double y = (mlx->y - j1) / mlx->block_size * 25;
+	double x = (mlx->x - i1) / mlx->block_size * 20;
+	double y = (mlx->y - j1) / mlx->block_size * 20;
 
 	draw_player(mlx, x, y , 5, ft_pixel(87, 125, 47, 255));
 }

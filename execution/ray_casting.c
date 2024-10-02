@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/10/01 16:19:03 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/02 12:31:33 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
 			{
 				if(mlx->map[map_y][map_x] == 'C')
-					mlx->door = 1;
+					mlx->h_door = 1;
 				else
-					mlx->door = 0;
+					mlx->h_door = 0;
 				break;
 			}
 		}
@@ -114,9 +114,9 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
 			{
 				if(mlx->map[map_y][map_x] == 'C')
-					mlx->door = 1;
+					mlx->v_door = 1;
 				else
-					mlx->door = 0;
+					mlx->v_door = 0;
 				break;
 			}
 		}
@@ -158,6 +158,7 @@ void	ray_casting(my_mlx_t *mlx)
 			mlx->wall_inter_x = mlx->x_h;
 			mlx->wall_inter_y = mlx->y_h;
 			mlx->is_vertical = 0;
+			mlx->door = mlx->h_door;
 		}
 		else
 		{
@@ -166,9 +167,10 @@ void	ray_casting(my_mlx_t *mlx)
 			mlx->wall_inter_x = mlx->x_v;
 			mlx->wall_inter_y = mlx->y_v;
 			mlx->is_vertical = 1;
+			mlx->door = mlx->v_door;
 		}
 		correct_distance = distance * cos((a - mlx->angle) * M_PI / 180);
-		double wall_height = (mlx->height / correct_distance) * mlx->block_size;
+		double wall_height = (mlx->height / correct_distance) * (mlx->block_size + 40);
 		double wall_start = (mlx->height / 2) - (wall_height / 2);
 		if (wall_start < 0.0)
 			wall_start = 0.0;
@@ -176,12 +178,14 @@ void	ray_casting(my_mlx_t *mlx)
 		if (wall_end > mlx->height)
 			wall_end = mlx->height;
 		double y = wall_start - 1;
-		//! ==== TEXTURE MAPPING ===== !//
 		int				tex_x;
 		int				tex_y;
 		unsigned int	pixel_color;
 
-		get_which_texture_side(mlx, mlx->wall_inter_x, mlx->wall_inter_y);
+		if (mlx->door == 1)
+			mlx->curr_texture = mlx->texture->door_tex;
+		else
+			get_which_texture_side(mlx, mlx->wall_inter_x, mlx->wall_inter_y);
 		tex_x = get_text_x(mlx, mlx->wall_inter);
 		int x = 0;
 		while(x < wall_start)

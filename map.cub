@@ -10,6 +10,9 @@ WE textures/example_we.png
 EA textures/example_ea.png
 
 
+DO textures/door_example.png
+
+
 F 9,100,32
 
 

@@ -6,7 +6,7 @@
 /*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:34:46 by mstaali           #+#    #+#             */
-/*   Updated: 2024/09/27 18:54:04 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/09/30 18:39:48 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	is_map_valid(my_mlx_t *mlx, char *line)
 	}
 	i = 0;
 	texture = 0;
-	while (line[i] && texture < 6)
+	while (line[i] && texture < 7)
 	{
 		if (line[i] == '\n' && line[i + 1] != '\n')
 			texture++;
@@ -142,17 +142,23 @@ void	get_layout(my_mlx_t *mlx, char *av)
 	layout = ft_split(line, '\n');
 	free(line);
 	check_textures(mlx, layout);
-	if (!is_surrounded_by_walls(layout + 6))
+	if (!is_surrounded_by_walls(layout + 7))
 	{
 		free_textures(mlx->texture);
 		free(mlx);
 		error_mssg(WALLS);
 	}
-	if (!player_exists(layout + 6))
+	if (!player_exists(layout + 7))
 	{
-		free(mlx);
 		free_textures(mlx->texture);
+		free(mlx);
 		error_mssg(PLAYER_NOT_FOUND);
 	}
-	fill_map(mlx, layout + 6);
+	if (!is_valid_doors(layout + 7))
+	{
+		free_textures(mlx->texture);
+		free(mlx);
+		error_mssg(DOORS);
+	}
+	fill_map(mlx, layout + 7);
 }
