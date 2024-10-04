@@ -47,29 +47,11 @@ typedef struct s_texture
 	mlx_texture_t	*door_tex;
 }	t_texture;
 
-typedef struct s_frame
-{
-	mlx_image_t			*init_state;
-	mlx_image_t			*animate_1;
-	mlx_image_t			*animate_2;
-	mlx_image_t			*animate_3;
-	mlx_image_t			*animate_4;
-	mlx_image_t			*animate_5;
-	mlx_image_t			*animate_6;
-	mlx_texture_t		*tex_init_state;
-	mlx_texture_t		*tex_animate_1;
-	mlx_texture_t		*tex_animate_2;
-	mlx_texture_t		*tex_animate_3;
-	mlx_texture_t		*tex_animate_4;
-	mlx_texture_t		*tex_animate_5;
-	mlx_texture_t		*tex_animate_6;
-}	t_frame;
-
 typedef struct my_mlx_s
 {
 	mlx_t *mlx;
 	mlx_image_t 	*img;
-	t_frame			*frames;
+	mlx_image_t		**sprite_frames;
 	mlx_texture_t	**sprite_textures;
 	int				num_frames;
 	int				curr_frame;
@@ -125,4 +107,6 @@ double			get_text_x(my_mlx_t *mlx, double wall_inter);
 double			get_tex_y(my_mlx_t *mlx, double y, double wall_height);
 int				is_valid_doors(char **layout);
 void			load_sprite_frames(my_mlx_t *mlx);
+void			animate_sprite(my_mlx_t *mlx);
+void			draw_sprite(my_mlx_t *mlx, mlx_image_t *sprite_frame, mlx_texture_t *sprite_texture);
 #endif

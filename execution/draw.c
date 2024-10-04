@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/10/01 18:42:11 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/04 13:08:00 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,43 @@ void draw_player(my_mlx_t *mlx,int x, int y, int radius, int color)
 	}
 }
 
+void	draw_sprite(my_mlx_t *mlx, mlx_image_t *sprite_frame, mlx_texture_t *sprite_texture)
+{
+	int	pos_x;
+	int	pos_y;
+	int	sprite_w;
+	int	sprite_h;
+	int x;
+	int y;
+	int index;
+
+	(void)sprite_frame;
+	// mlx_delete_image(mlx->mlx, sprite_frame);
+	sprite_w = sprite_texture->width;
+	sprite_h = sprite_texture->height;
+	pos_x = (mlx->width - sprite_w) / 2;
+	pos_y = mlx->height - sprite_h;
+	// mlx_image_to_window(mlx->mlx, sprite_frame, pos_x, pos_y);
+	x = 0;
+	while (x < sprite_w)
+	{
+		y = 0;
+		while (y < sprite_h)
+		{
+			index = (y * sprite_w + x) * sprite_texture->bytes_per_pixel;
+			if (sprite_texture->pixels[index] != 0
+				|| sprite_texture->pixels[index + 1] != 0
+				|| sprite_texture->pixels[index + 2] != 0
+				|| sprite_texture->pixels[index + 3] != 0)
+			{
+				mlx_put_pixel(mlx->img, pos_x + x, pos_y + y, ft_pixel(sprite_texture->pixels[index],
+					sprite_texture->pixels[index + 1], sprite_texture->pixels[index + 2], sprite_texture->pixels[index + 3]));
+			}
+			y++;
+		}
+		x++;
+	}
+}
 
 
 void draw_mlx(my_mlx_t *mlx)
@@ -147,6 +184,7 @@ void	main_fct(my_mlx_t *mlx)
 	load_sprite_frames(mlx);
 	draw_mlx(mlx);
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
+	// draw_sprite(mlx, mlx->sprite_frames[0], mlx->sprite_textures[0]);
 	mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(mlx->mlx, hook_fct, mlx);
 	// // mlx_close_window(mlx);

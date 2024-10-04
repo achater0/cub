@@ -1,22 +1,22 @@
-NO textures/example_no.png
+NO textures/blue_tnt.png
 
 
-SO textures/example_so.png
+SO textures/diamond_block.png
 
 
-WE textures/example_we.png
+WE textures/calcite.png
 
 
-EA textures/example_ea.png
+EA textures/glass.png
 
 
-DO textures/door_example.png
+DO textures/iron_door.png
 
 
-F 9,100,32
+F 185,211,238
 
 
-C 225,200,44
+C 204,229,255
 
 1111111111111111
 1000000000000001

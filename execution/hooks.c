@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/10/02 15:04:47 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/04 12:04:44 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,11 @@ void hook_fct(void *param)
 		move(mlx, 90);
 	mlx_key_hook(mlx->mlx, key_fct, mlx);
 	// animate_sprite(mlx);
+
 	mlx_delete_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	draw_mlx(mlx);
+	animate_sprite(mlx);
+	draw_sprite(mlx, mlx->sprite_frames[mlx->curr_frame], mlx->sprite_textures[mlx->curr_frame]);
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 }
