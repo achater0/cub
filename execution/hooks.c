@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/10/04 12:04:44 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/10 11:28:18 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int check_fct(my_mlx_t *mlx, double x, double y)
 	int i;
 	int j;
 
-	j = (int)(x / mlx->block_size);
-	i = (int)(y / mlx->block_size);
+	j = (int)(x / mlx->b_size);
+	i = (int)(y / mlx->b_size);
 	if (mlx->map[i][j] != '1' && mlx->map[i][j] != 'C'
-		&& mlx->map[(int)(mlx->y / mlx->block_size)][j] != '1'
-		&& mlx->map[i][(int)(mlx->x / mlx->block_size)] != '1'
-		&& mlx->map[(int)(y+ 10) / mlx->block_size][(int)(x+ 10)/ mlx->block_size] != '1'
-		&& mlx->map[(int)(y)/mlx->block_size][(int)(x+ 10)/mlx->block_size] != '1'
-		&& mlx->map[(int)(y+ 10)/mlx->block_size][(int)(x)/mlx->block_size] != '1'
-		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x- 10)/mlx->block_size] != '1'
-		&& mlx->map[(int)(y)/mlx->block_size][(int)(x- 10)/mlx->block_size] != '1'
-		&& mlx->map[(int)(y- 10)/mlx->block_size][(int)(x)/mlx->block_size] != '1')
+		&& mlx->map[(int)(mlx->y / mlx->b_size)][j] != '1'
+		&& mlx->map[i][(int)(mlx->x / mlx->b_size)] != '1'
+		&& mlx->map[(int)(y+ 10) / mlx->b_size][(int)(x+ 10)/ mlx->b_size] != '1'
+		&& mlx->map[(int)(y)/mlx->b_size][(int)(x+ 10)/mlx->b_size] != '1'
+		&& mlx->map[(int)(y+ 10)/mlx->b_size][(int)(x)/mlx->b_size] != '1'
+		&& mlx->map[(int)(y- 10)/mlx->b_size][(int)(x- 10)/mlx->b_size] != '1'
+		&& mlx->map[(int)(y)/mlx->b_size][(int)(x- 10)/mlx->b_size] != '1'
+		&& mlx->map[(int)(y- 10)/mlx->b_size][(int)(x)/mlx->b_size] != '1')
 		return (1);
 	return (0);
 }
@@ -141,8 +141,6 @@ void hook_fct(void *param)
 	if (mlx_is_key_down(mlx->mlx, 68))
 		move(mlx, 90);
 	mlx_key_hook(mlx->mlx, key_fct, mlx);
-	// animate_sprite(mlx);
-
 	mlx_delete_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	draw_mlx(mlx);

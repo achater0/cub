@@ -65,7 +65,7 @@ typedef struct my_mlx_s
 	int height;
 	unsigned int cols;
 	unsigned int rows;
-	int block_size;
+	int b_size;
 	int	is_vertical;
 	mlx_texture_t	*curr_texture;
 	double x_h;

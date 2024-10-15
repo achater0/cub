@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frames.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:11:26 by mstaali           #+#    #+#             */
-/*   Updated: 2024/10/03 18:27:54 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/04 20:19:37 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	animate_sprite(my_mlx_t *mlx)
     if (mlx->is_animated)
 	{
 		current_time = mlx_get_time();
-		if (current_time - mlx->last_frame_time >= 0.05)
+		if (current_time - mlx->last_frame_time >= 0.04)
 		{
 			if (mlx->sprite_frames[mlx->curr_frame])
 				mlx_delete_image(mlx->mlx, mlx->sprite_frames[mlx->curr_frame]);

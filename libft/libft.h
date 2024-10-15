@@ -6,7 +6,7 @@
 /*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 21:04:50 by mstaali           #+#    #+#             */
-/*   Updated: 2024/09/17 14:14:29 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/09 16:08:52 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	*ft_memchr(const void *str, int c, size_t size);
 int		ft_memcmp(const void *str1, const void *str2, size_t size);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_atoi(const char *str);
+double	ft_atof(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:12:34 by mstaali           #+#    #+#             */
-/*   Updated: 2024/09/30 17:25:56 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/10 11:28:18 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ void	get_which_texture_side(my_mlx_t *mlx, double ray_x, double ray_y)
 	int	grid_x;
 	int	grid_y;
 
-	grid_x = (int)(ray_x / mlx->block_size);
-	grid_y = (int)(ray_y / mlx->block_size);
+	grid_x = (int)(ray_x / mlx->b_size);
+	grid_y = (int)(ray_y / mlx->b_size);
 	if (mlx->is_vertical)
 	{
-		if (grid_x > mlx->x / mlx->block_size)
+		if (grid_x > mlx->x / mlx->b_size)
 			mlx->curr_texture = mlx->texture->ea_tex;
 		else
 			mlx->curr_texture = mlx->texture->we_tex;
 	}
 	else
 	{
-		if (grid_y > mlx->y / mlx->block_size)
+		if (grid_y > mlx->y / mlx->b_size)
 			mlx->curr_texture = mlx->texture->so_tex;
 		else
 			mlx->curr_texture = mlx->texture->no_tex;
@@ -40,8 +40,8 @@ double	get_text_x(my_mlx_t *mlx, double wall_inter)
 	double	tex_x;
 	double	offset;
 
-	offset = fmod(wall_inter, mlx->block_size);
-	tex_x = (offset * mlx->curr_texture->width) / mlx->block_size;
+	offset = fmod(wall_inter, mlx->b_size);
+	tex_x = (offset * mlx->curr_texture->width) / mlx->b_size;
 	return (tex_x);
 }
 

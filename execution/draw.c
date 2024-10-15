@@ -6,19 +6,18 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/10/04 13:08:00 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/10 11:37:54 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void initiate_angle_pos(my_mlx_t *mlx)
+void	initiate_angle_pos(my_mlx_t *mlx)
 {
-	unsigned int i;
-	unsigned int j;
+	unsigned int	i;
+	unsigned int	j;
 
-	i = -1;
-	mlx->hidden = 1;
+	(1) && (i = -1, mlx->hidden = 1);
 	while(++i < mlx->rows)
 	{
 		j = -1;
@@ -35,23 +34,22 @@ void initiate_angle_pos(my_mlx_t *mlx)
 			if (mlx->map[i][j] == 'N' || mlx->map[i][j] == 'E'
 				|| mlx->map[i][j] == 'S' || mlx->map[i][j] == 'W')
 			{
-				mlx->x = j * mlx->block_size + mlx->block_size / 2;
-				mlx->y = i * mlx->block_size + mlx->block_size / 2;
+				mlx->x = j * mlx->b_size + mlx->b_size / 2;
+				mlx->y = i * mlx->b_size + mlx->b_size / 2;
 			}
 		}
 	}
 }
 
-
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void color_the_block(mlx_image_t *img,int i, int j, int width, int height, int color)
+void	color_the_block(mlx_image_t *img,int i, int j, int width, int height, int color)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = i;
 	while (x < i + width - 1)
@@ -66,12 +64,8 @@ void color_the_block(mlx_image_t *img,int i, int j, int width, int height, int c
 	}
 }
 
-void draw_player(my_mlx_t *mlx,int x, int y, int radius, int color)
+void	draw_player_deriction(my_mlx_t *mlx, int x, int y)
 {
-	int	cx = x;
-	int	cy = y;
-	int	dx = -radius;
-	int	dy;
 	double start_angle;
 	double step;
 	double angle;
@@ -91,18 +85,26 @@ void draw_player(my_mlx_t *mlx,int x, int y, int radius, int color)
 		{
 			a += cos(angle * M_PI / 180);
 			b += sin(angle * M_PI / 180);
-			mlx_put_pixel(mlx->img, a, b, ft_pixel(205, 205, 180, 255));
+			mlx_put_pixel(mlx->img, a, b, ft_pixel(178, 255, 255, 220));
 			i++;
 		}
 		angle += step;
 	}
+}
+
+void	draw_player(my_mlx_t *mlx,int x, int y, int radius, int color)
+{
+	int	dx = -radius;
+	int	dy;
+
+	draw_player_deriction(mlx, x, y);
 	while (dx <= radius)
 	{
 		dy = -radius;
 		while (dy <= radius)
 		{
 			if (dx * dx + dy * dy <= radius * radius)
-				mlx_put_pixel(mlx->img, cx + dx, cy + dy, color);
+				mlx_put_pixel(mlx->img, x + dx, y + dy, color);
 			dy++;
 		}
 		dx++;
@@ -150,28 +152,6 @@ void	draw_sprite(my_mlx_t *mlx, mlx_image_t *sprite_frame, mlx_texture_t *sprite
 
 void draw_mlx(my_mlx_t *mlx)
 {
-	// unsigned int i;
-	// unsigned int j;
-
-	// i = 0;
-	// while(i < mlx->rows)
-	// {
-	// 	j = 0;
-	// 	while(j < mlx->cols)
-	// 	{
-	// 		if (mlx->map[i][j] == '1')
-	// 			color_the_block(mlx->img, j *mlx->block_size, i * mlx->block_size
-	// 				, mlx->block_size, mlx->block_size, ft_pixel(0, 0, 0, 255));
-	// 		else if (mlx->map[i][j] == '0' || mlx->map[i][j] == 'N'
-	// 			|| mlx->map[i][j] == 'E' || mlx->map[i][j] == 'S'
-	// 				|| mlx->map[i][j] == 'W')
-	// 			color_the_block(mlx->img,j * mlx->block_size, i * mlx->block_size
-	// 				, mlx->block_size, mlx->block_size, ft_pixel(255, 255, 255, 255));
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// draw_player(mlx->img, mlx->x, mlx->y , 10, ft_pixel(255, 0, 0, 255));
 	ray_casting(mlx);
 	draw_mini_map(mlx);
 }
@@ -184,7 +164,6 @@ void	main_fct(my_mlx_t *mlx)
 	load_sprite_frames(mlx);
 	draw_mlx(mlx);
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
-	// draw_sprite(mlx, mlx->sprite_frames[0], mlx->sprite_textures[0]);
 	mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(mlx->mlx, hook_fct, mlx);
 	// // mlx_close_window(mlx);

@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:48:43 by achater           #+#    #+#             */
-/*   Updated: 2024/10/02 12:31:33 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/12 10:39:27 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 
 	normalize_angle(&a);
 	if (sin_a > 0)
-		Ay = floor(Py / mlx->block_size) * mlx->block_size + mlx->block_size;
+		Ay = floor(Py / mlx->b_size) * mlx->b_size + mlx->b_size;
 	else
-		Ay = floor(Py / mlx->block_size) * mlx->block_size;
+		Ay = floor(Py / mlx->b_size) * mlx->b_size;
 	Ax = Px - (Py - Ay) / tan_a;
-	ystep = mlx->block_size;
+	ystep = mlx->b_size;
 	xstep = ystep / tan_a;
 	if (sin_a <= 0)
 		ystep *= -1;
@@ -48,12 +48,12 @@ double	horizontal_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		xstep *= -1;
 	x_ray = Ax;
 	y_ray = Ay;
-	while(x_ray >= 0 && y_ray >= 0 && x_ray < (mlx->cols * mlx->block_size) && y_ray < (mlx->rows * mlx->block_size))
+	while(x_ray >= 0 && y_ray >= 0 && x_ray < (mlx->cols * mlx->b_size) && y_ray < (mlx->rows * mlx->b_size))
 	{
-		int map_x = (int)(x_ray / mlx->block_size);
-		int map_y = (int)(y_ray / mlx->block_size);
+		int map_x = (int)(x_ray / mlx->b_size);
+		int map_y = (int)(y_ray / mlx->b_size);
 		if (sin_a < 0)
-			map_y = floor(((y_ray - 1) / mlx->block_size));
+			map_y = floor(((y_ray - 1) / mlx->b_size));
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
 			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
@@ -89,11 +89,11 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 
 	normalize_angle(&a);
 	if (cos_a > 0)
-		Ax = floor(Px / mlx->block_size) * mlx->block_size + mlx->block_size;
+		Ax = floor(Px / mlx->b_size) * mlx->b_size + mlx->b_size;
 	else
-		Ax = floor(Px / mlx->block_size) * mlx->block_size ;
+		Ax = floor(Px / mlx->b_size) * mlx->b_size ;
 	Ay = Py + (Ax - Px) * tan_a;
-	xstep = mlx->block_size;
+	xstep = mlx->b_size;
 	ystep = xstep * tan_a;
 	if (cos_a <= 0)
 		xstep *= -1;
@@ -103,12 +103,12 @@ double	vertical_distance(my_mlx_t *mlx, double Px, double Py, double a)
 		ystep *= -1;
 	x_ray = Ax;
 	y_ray = Ay;
-	while(x_ray >= 0 && y_ray >= 0 && x_ray < (mlx->cols * mlx->block_size) && y_ray < (mlx->rows * mlx->block_size))
+	while(x_ray >= 0 && y_ray >= 0 && x_ray < (mlx->cols * mlx->b_size) && y_ray < (mlx->rows * mlx->b_size))
 	{
-		int map_x = (int)(x_ray / mlx->block_size);
-		int map_y = (int)(y_ray / mlx->block_size);
+		int map_x = (int)(x_ray / mlx->b_size);
+		int map_y = (int)(y_ray / mlx->b_size);
 		if (cos_a < 0)
-			map_x = floor(((x_ray - 1) / mlx->block_size));
+			map_x = floor(((x_ray - 1) / mlx->b_size));
 		if (map_x >= 0 && map_x < (int)mlx->cols && map_y >= 0 && map_y < (int)mlx->rows)
 		{
 			if (mlx->map[map_y][map_x] == '1' || mlx->map[map_y][map_x] == 'C')
@@ -170,7 +170,7 @@ void	ray_casting(my_mlx_t *mlx)
 			mlx->door = mlx->v_door;
 		}
 		correct_distance = distance * cos((a - mlx->angle) * M_PI / 180);
-		double wall_height = (mlx->height / correct_distance) * (mlx->block_size + 40);
+		double wall_height = (mlx->height / correct_distance) * (mlx->b_size + 40);
 		double wall_start = (mlx->height / 2) - (wall_height / 2);
 		if (wall_start < 0.0)
 			wall_start = 0.0;

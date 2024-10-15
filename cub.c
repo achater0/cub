@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/10/01 18:26:29 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/12 10:54:46 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main(int ac, char **av)
 		check_extension(av[1]);
 		mlx = malloc(sizeof(my_mlx_t));
 		get_layout(mlx, av[1]);
-		mlx->block_size = 80;
+		mlx->b_size = 80;
 		mlx->width = 1280;
 		mlx->height = 720;
 		main_fct(mlx);
