@@ -80,6 +80,9 @@ typedef struct my_mlx_s
 	int v_door;
 	int h_door;
 	int	hidden;
+	double			wall_height;
+	double			wall_start;
+	double			wall_end;
 }	my_mlx_t;
 
 void			main_fct(my_mlx_t *mlx);
