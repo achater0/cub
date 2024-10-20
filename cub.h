@@ -83,6 +83,8 @@ typedef struct my_mlx_s
 	double			wall_height;
 	double			wall_start;
 	double			wall_end;
+	double	j2;
+	double	i2;
 }	my_mlx_t;
 
 void			main_fct(my_mlx_t *mlx);
@@ -91,9 +93,8 @@ void			draw_mlx(my_mlx_t *mlx);
 void			ray_casting(my_mlx_t *mlx);
 int32_t 		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void			normalize_angle(double *angle);
-void 			draw_player(my_mlx_t *mlx,int x, int y, int radius, int color);
+void 			draw_player(my_mlx_t *mlx,int x, int y, int color);
 void			draw_mini_map(my_mlx_t *mlx);
-void 			color_the_block(mlx_image_t *img,int i, int j, int width, int height, int color);
 void			open_close_door(my_mlx_t *mlx);
 
 
@@ -111,5 +112,5 @@ double			get_tex_y(my_mlx_t *mlx, double y, double wall_height);
 int				is_valid_doors(char **layout);
 void			load_sprite_frames(my_mlx_t *mlx);
 void			animate_sprite(my_mlx_t *mlx);
-void			draw_sprite(my_mlx_t *mlx, mlx_image_t *sprite_frame, mlx_texture_t *sprite_texture);
+void			draw_sprite(my_mlx_t *mlx, mlx_texture_t *sprite_texture, int x, int y);
 #endif

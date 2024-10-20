@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frames.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:11:26 by mstaali           #+#    #+#             */
-/*   Updated: 2024/10/04 20:19:37 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/20 10:16:30 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	animate_sprite(my_mlx_t *mlx)
 				mlx->is_animated = 0;
 			}
 			mlx->sprite_frames[mlx->curr_frame] = mlx_texture_to_image(mlx->mlx, mlx->sprite_textures[mlx->curr_frame]);
-			draw_sprite(mlx, mlx->sprite_frames[mlx->curr_frame], mlx->sprite_textures[mlx->curr_frame]);
+			draw_sprite(mlx, mlx->sprite_textures[mlx->curr_frame], -1, -1);
 			mlx->last_frame_time = current_time;
 		}
 	}

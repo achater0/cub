@@ -6,14 +6,13 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/10/10 11:28:18 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/20 10:57:12 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-
-void rotate(my_mlx_t *mlx, int angle)
+void	rotate(my_mlx_t *mlx, int angle)
 {
 	mlx->angle += angle;
 	if (mlx->angle >= 360)
@@ -22,30 +21,32 @@ void rotate(my_mlx_t *mlx, int angle)
 		mlx->angle += 360;
 }
 
-int check_fct(my_mlx_t *mlx, double x, double y)
+int	check_fct(my_mlx_t *mlx, double x, double y)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = (int)(x / mlx->b_size);
 	i = (int)(y / mlx->b_size);
 	if (mlx->map[i][j] != '1' && mlx->map[i][j] != 'C'
 		&& mlx->map[(int)(mlx->y / mlx->b_size)][j] != '1'
 		&& mlx->map[i][(int)(mlx->x / mlx->b_size)] != '1'
-		&& mlx->map[(int)(y+ 10) / mlx->b_size][(int)(x+ 10)/ mlx->b_size] != '1'
-		&& mlx->map[(int)(y)/mlx->b_size][(int)(x+ 10)/mlx->b_size] != '1'
-		&& mlx->map[(int)(y+ 10)/mlx->b_size][(int)(x)/mlx->b_size] != '1'
-		&& mlx->map[(int)(y- 10)/mlx->b_size][(int)(x- 10)/mlx->b_size] != '1'
-		&& mlx->map[(int)(y)/mlx->b_size][(int)(x- 10)/mlx->b_size] != '1'
-		&& mlx->map[(int)(y- 10)/mlx->b_size][(int)(x)/mlx->b_size] != '1')
+		&& mlx->map[(int)(y + 10) / mlx->b_size]
+			[(int)(x + 10) / mlx->b_size] != '1'
+		&& mlx->map[(int)(y) / mlx->b_size][(int)(x + 10) / mlx->b_size] != '1'
+		&& mlx->map[(int)(y + 10) / mlx->b_size][(int)(x) / mlx->b_size] != '1'
+		&& mlx->map[(int)(y - 10) / mlx->b_size]
+			[(int)(x - 10) / mlx->b_size] != '1'
+		&& mlx->map[(int)(y) / mlx->b_size][(int)(x - 10) / mlx->b_size] != '1'
+		&& mlx->map[(int)(y - 10) / mlx->b_size][(int)(x) / mlx->b_size] != '1')
 		return (1);
 	return (0);
 }
 
-void move(my_mlx_t *mlx, double angle)
+void	move(my_mlx_t *mlx, double angle)
 {
-	double y;
-	double x;
+	double	y;
+	double	x;
 
 	x = mlx->x + 5.0 * cos((mlx->angle + angle) * M_PI / 180);
 	y = mlx->y + 5.0 * sin((mlx->angle + angle) * M_PI / 180);
@@ -57,7 +58,7 @@ void move(my_mlx_t *mlx, double angle)
 
 void	key_fct(struct mlx_key_data key, void *param)
 {
-	my_mlx_t *mlx;
+	my_mlx_t	*mlx;
 
 	mlx = (my_mlx_t *)param;
 	if (key.key == MLX_KEY_P && key.action == MLX_RELEASE)
@@ -77,28 +78,10 @@ void	key_fct(struct mlx_key_data key, void *param)
 		open_close_door(mlx);
 }
 
-// void	animate_sprite(my_mlx_t *mlx)
-// {
-// 	double	curr_time;
-
-// 	if (mlx->is_animated == 0)
-//         return ;
-// 	curr_time = mlx_get_time();
-//     if (curr_time - mlx->last_frame_time >= 0.5)
-//     {
-// 		mlx_set_instance_depth(&mlx->sprite_frames[mlx->curr_frame]->instances[0], -1);
-// 		mlx->curr_frame = (mlx->curr_frame + 1) % mlx->num_frames;
-// 		mlx->last_frame_time = curr_time;
-// 		mlx_set_instance_depth(&mlx->sprite_frames[mlx->curr_frame]->instances[0], 0);
-// 		if (mlx->curr_frame == 0)
-// 			mlx->is_animated = 0;
-//     }
-// }
-
-void mouse_hook(my_mlx_t *mlx)
+void	mouse_hook(my_mlx_t *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	mlx_get_mouse_pos(mlx->mlx, &x, &y);
 	if (mlx->hidden)
@@ -109,42 +92,30 @@ void mouse_hook(my_mlx_t *mlx)
 		mlx->angle -= (mlx->width / 2 - x) * 180 / mlx->width / 3;
 		normalize_angle(&mlx->angle);
 	}
-	// if (mlx_is_mouse_down(mlx->mlx, MLX_MOUSE_BUTTON_RIGHT))
-    // {
-	// 	mlx->is_animated = 1;
-	// 	mlx->curr_frame = 0;
-	// 	mlx->last_frame_time = mlx_get_time();
-    // }
 	mlx_key_hook(mlx->mlx, key_fct, mlx);
 }
 
-void hook_fct(void *param)
+void	hook_fct(void *param)
 {
-	my_mlx_t 	*mlx;
+	my_mlx_t	*mlx;
+	int			i;
 
 	mlx = (my_mlx_t *)param;
 	mouse_hook(mlx);
-	if (mlx_is_key_down(mlx->mlx, 256))
-		mlx_close_window(mlx->mlx);
+	(mlx_is_key_down(mlx->mlx, 256)) && (mlx_close_window(mlx->mlx), i = -1);
 	if (!mlx->hidden)
 		return ;
-	if (mlx_is_key_down(mlx->mlx, 262))
-		rotate(mlx, 2);
-	if (mlx_is_key_down(mlx->mlx, 263))
-		rotate(mlx, -2);
-	if (mlx_is_key_down(mlx->mlx, 87))
-		move(mlx, 0);
-	if (mlx_is_key_down(mlx->mlx, 83))
-		move(mlx, 180);
-	if (mlx_is_key_down(mlx->mlx, 65))
-		move(mlx, 270);
-	if (mlx_is_key_down(mlx->mlx, 68))
-		move(mlx, 90);
+	(mlx_is_key_down(mlx->mlx, 262)) && (rotate(mlx, 2), i = -1);
+	(mlx_is_key_down(mlx->mlx, 263)) && (rotate(mlx, -2), i = -1);
+	(mlx_is_key_down(mlx->mlx, 87)) && (move(mlx, 0), i = -1);
+	(mlx_is_key_down(mlx->mlx, 83)) && (move(mlx, 180), i = -1);
+	(mlx_is_key_down(mlx->mlx, 65)) && (move(mlx, 270), i = -1);
+	(mlx_is_key_down(mlx->mlx, 68)) && (move(mlx, 90), i = -1);
 	mlx_key_hook(mlx->mlx, key_fct, mlx);
 	mlx_delete_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	draw_mlx(mlx);
 	animate_sprite(mlx);
-	draw_sprite(mlx, mlx->sprite_frames[mlx->curr_frame], mlx->sprite_textures[mlx->curr_frame]);
+	draw_sprite(mlx, mlx->sprite_textures[mlx->curr_frame], -1, -1);
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 }
