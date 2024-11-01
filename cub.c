@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:33:23 by achater           #+#    #+#             */
-/*   Updated: 2024/10/12 10:54:46 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/21 19:47:49 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	free_textures(my_mlx_t *mlx)
+{
+	mlx_delete_texture(mlx->texture->no_tex);
+	mlx_delete_texture(mlx->texture->so_tex);
+	mlx_delete_texture(mlx->texture->ea_tex);
+	mlx_delete_texture(mlx->texture->we_tex);
+	mlx_delete_texture(mlx->texture->door_tex);
+	free(mlx->texture);
+	free(mlx);
+}
 
 void	check_extension(char *av)
 {

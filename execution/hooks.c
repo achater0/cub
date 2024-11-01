@@ -6,7 +6,7 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:18:53 by achater           #+#    #+#             */
-/*   Updated: 2024/10/20 10:57:12 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/31 11:56:02 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	move(my_mlx_t *mlx, double angle)
 	y = mlx->y + 5.0 * sin((mlx->angle + angle) * M_PI / 180);
 	if (check_fct(mlx, x, mlx->y))
 		mlx->x = x;
-	if (check_fct(mlx, x, y))
+	if (check_fct(mlx, mlx->x, y))
 		mlx->y = y;
 }
 

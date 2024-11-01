@@ -33,11 +33,6 @@ typedef enum e_error {
 
 typedef struct s_texture
 {
-	char			*no;
-	char			*so;
-	char			*we;
-	char			*ea;
-	char			*door;
 	unsigned int	f_clr;
 	unsigned int	c_clr;
 	mlx_texture_t	*no_tex;
@@ -93,12 +88,14 @@ void			draw_mlx(my_mlx_t *mlx);
 void			ray_casting(my_mlx_t *mlx);
 int32_t 		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void			normalize_angle(double *angle);
-void 			draw_player(my_mlx_t *mlx,int x, int y, int color);
+void			draw_player(my_mlx_t *mlx, int x, int y, int color);
 void			draw_mini_map(my_mlx_t *mlx);
+void 			color_the_block(mlx_image_t *img,int i, int j, int width, int height, int color);
 void			open_close_door(my_mlx_t *mlx);
 
 
 void			error_mssg(int flag);
+void			error_mssg_2(int flag);
 void			get_layout(my_mlx_t *mlx, char *av);
 char			*get_next_line(int fd);
 void			check_textures(my_mlx_t *mlx, char **layout);
@@ -112,5 +109,11 @@ double			get_tex_y(my_mlx_t *mlx, double y, double wall_height);
 int				is_valid_doors(char **layout);
 void			load_sprite_frames(my_mlx_t *mlx);
 void			animate_sprite(my_mlx_t *mlx);
-void			draw_sprite(my_mlx_t *mlx, mlx_texture_t *sprite_texture, int x, int y);
+void			draw_sprite(my_mlx_t *mlx, mlx_texture_t *s_t, int x, int y);
+unsigned int	rgb_to_uint(char *component);
+void			free_textures(my_mlx_t *mlx);
+void			fill_map(my_mlx_t *mlx, char **layout);
+char			*ft_gnl_strjoin(char *stored, char *buffer);
+char			*ft_gnl_strchr(char *s, int c);
+size_t			ft_gnl_strlen(char *s);
 #endif

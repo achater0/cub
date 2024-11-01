@@ -6,38 +6,105 @@
 /*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:58:19 by mstaali           #+#    #+#             */
-/*   Updated: 2024/09/10 12:39:39 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/19 17:05:26 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-char	*get_next_line(int fd)
+char	*extract_line(char *stored)
 {
-	static char	buffer[BUFFER_SIZE];
-	char		line[70000];
-	static int	buffer_readed;
-	static int 	buffer_pos;
-	int			i;
+	int		i;
+	char	*str;
 
 	i = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (!stored[i])
 		return (NULL);
-	while (1)
+	while (stored[i] && stored[i] != '\n')
+		i++;
+	str = (char *)malloc(i + 2);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (stored[i] && stored[i] != '\n')
 	{
-		if (buffer_pos >= buffer_readed)
-		{
-			buffer_readed = read(fd, buffer, BUFFER_SIZE);
-			buffer_pos = 0;
-			if (buffer_readed <= 0)
-				break ;
-		}
-		line[i++] = buffer[buffer_pos++];
-		if (line[i - 1] == '\n')
-			break ;
+		str[i] = stored[i];
+		i++;
 	}
-	line[i] = '\0';
-	if (i == 0)
+	if (stored[i] == '\n')
+	{
+		str[i] = stored[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*clean_last_line(char *stored)
+{
+	int		i;
+	int		j;
+	char	*clean;
+
+	i = 0;
+	while (stored[i] && stored[i] != '\n')
+		i++;
+	if (!stored[i])
+	{
+		free(stored);
 		return (NULL);
-	return (ft_strdup(line));
+	}
+	clean = (char *)malloc(ft_gnl_strlen(stored) - i + 1);
+	if (!clean)
+		return (NULL);
+	i++;
+	j = 0;
+	while (stored[i])
+		clean[j++] = stored[i++];
+	clean[j] = '\0';
+	free(stored);
+	return (clean);
+}
+
+char	*read_and_store(int fd, char *stored)
+{
+	char	*buffer;
+	int		readed;
+
+	buffer = (char *)malloc((size_t)BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	readed = 1;
+	while (!ft_gnl_strchr(stored, '\n') && readed != 0)
+	{
+		readed = read(fd, buffer, BUFFER_SIZE);
+		if (readed == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[readed] = '\0';
+		stored = ft_gnl_strjoin(stored, buffer);
+	}
+	free(buffer);
+	return (stored);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*stored;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+	{
+		free(stored);
+		stored = NULL;
+		return (NULL);
+	}
+	stored = read_and_store(fd, stored);
+	if (!stored)
+		return (NULL);
+	line = extract_line(stored);
+	stored = clean_last_line(stored);
+	return (line);
 }

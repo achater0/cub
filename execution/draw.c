@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:08:58 by achater           #+#    #+#             */
-/*   Updated: 2024/10/20 10:52:22 by achater          ###   ########.fr       */
+/*   Updated: 2024/10/23 02:49:30 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_player_deriction(my_mlx_t *mlx, int x, int y)
 		{
 			a += cos(angle * M_PI / 180);
 			b += sin(angle * M_PI / 180);
-			mlx_put_pixel(mlx->img, a, b, ft_pixel(178, 255, 255, 220));
+			mlx_put_pixel(mlx->img, a, b, ft_pixel(255, 215, 0, 160));
 		}
 		angle++;
 	}

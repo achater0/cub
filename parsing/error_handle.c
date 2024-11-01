@@ -6,7 +6,7 @@
 /*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:52:06 by mstaali           #+#    #+#             */
-/*   Updated: 2024/10/01 15:17:11 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/17 19:42:31 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	error_mssg(int flag)
 {
 	ft_putstr_fd("\n\033[1;31mError:\033[0m ", STDERR_FILENO);
 	if (flag == EXTENSION)
-		ft_putstr_fd("Incorrect file extension\nUsage: ./cub3D <path_to_map_file.cub>\n\n", STDERR_FILENO);
+		ft_putstr_fd("Incorrect file extension\nUsage: ./cub3D \
+		<path_to_map_file.cub>\n\n", STDERR_FILENO);
 	if (flag == INVALID_INPUT)
-		ft_putstr_fd("Invalid input\nUsage: ./cub3D <path_to_map_file.cub>\n\n", STDERR_FILENO);
+		ft_putstr_fd("Invalid input\nUsage: ./cub3D \
+		<path_to_map_file.cub>\n\n", STDERR_FILENO);
 	if (flag == EMPTY_FILE)
 		ft_putstr_fd("File empty\n\n", STDERR_FILENO);
 	if (flag == NEWLINE_MAP)
@@ -31,8 +33,12 @@ void	error_mssg(int flag)
 		ft_putstr_fd("Texture did not load\n\n", STDERR_FILENO);
 	if (flag == PERMISSION)
 		ft_putstr_fd("Permission denied\n\n", STDERR_FILENO);
-	if (flag == CHECK_FILE)
-		ft_putstr_fd("Path for file is not checked\n\n", STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
+
+void	error_mssg_2(int flag)
+{
+	ft_putstr_fd("\n\033[1;31mError:\033[0m ", STDERR_FILENO);
 	if (flag == COLORS)
 		ft_putstr_fd("Invalid color pattern\n\n", STDERR_FILENO);
 	if (flag == WALLS)

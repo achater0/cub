@@ -6,37 +6,36 @@
 /*   By: achater <achater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:13:31 by achater           #+#    #+#             */
-/*   Updated: 2024/10/20 13:48:24 by achater          ###   ########.fr       */
+/*   Updated: 2024/11/01 10:54:31 by achater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	draw_contour(my_mlx_t *mlx)
+void	draw_contour(my_mlx_t *mlx, int32_t color)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	i = -1;
-	j = 10 * 20;
-	while (++i < j)
+	while (++i < (10 * 20))
 	{
 		k = -1;
 		while (++k < 4)
 		{
-			mlx_put_pixel(mlx->img, i, k, ft_pixel(62, 95, 138, 255));
-			mlx_put_pixel(mlx->img, i, j - 1 - k, ft_pixel(62, 95, 138, 255));
+			mlx_put_pixel(mlx->img, i, k, color);
+			mlx_put_pixel(mlx->img, i, (10 * 20) - 1 - k, color);
 		}
 	}
-	i = -1;
-	while (++i < j)
+	j = -1;
+	while (++j < (10 * 20))
 	{
 		k = -1;
 		while (++k < 4)
 		{
-			mlx_put_pixel(mlx->img, k, i, ft_pixel(62, 95, 138, 255));
-			mlx_put_pixel(mlx->img, j - 1 - k, i, ft_pixel(62, 95, 138, 255));
+			mlx_put_pixel(mlx->img, k, j, color);
+			mlx_put_pixel(mlx->img, (10 * 20) - 1 - k, j, color);
 		}
 	}
 }
@@ -55,18 +54,18 @@ void	draw_helper(my_mlx_t *mlx, double j1, double i1, int j)
 		{
 			if (mlx->map[(int)mlx->j2 / mlx->b_size]
 				[(int)mlx->i2 / mlx->b_size] == '1')
-				mlx_put_pixel(mlx->img, i, j, ft_pixel(147, 190, 222, 255));
+				mlx_put_pixel(mlx->img, i, j, ft_pixel(128, 128, 128, 255));
 			else if (mlx->map[(int)mlx->j2 / mlx->b_size]
 				[(int)mlx->i2 / mlx->b_size] == 'C')
-				mlx_put_pixel(mlx->img, i, j, ft_pixel(86, 108, 134, 255));
+				mlx_put_pixel(mlx->img, i, j, ft_pixel(170, 30, 30, 255));
 			else if (mlx->map[(int)mlx->j2 / mlx->b_size]
 				[(int)mlx->i2 / mlx->b_size] == 'O')
-				mlx_put_pixel(mlx->img, i, j, ft_pixel(202, 235, 255, 255));
+				mlx_put_pixel(mlx->img, i, j, ft_pixel(80, 80, 80, 255));
 			else
-				mlx_put_pixel(mlx->img, i, j, ft_pixel(230, 245, 255, 255));
+				mlx_put_pixel(mlx->img, i, j, ft_pixel(40, 40, 40, 255));
 		}
 		else
-			mlx_put_pixel(mlx->img, i, j, ft_pixel(48, 65, 88, 255));
+			mlx_put_pixel(mlx->img, i, j, ft_pixel(20, 20, 20, 255));
 	}
 }
 
@@ -81,10 +80,10 @@ void	draw_mini_map(my_mlx_t *mlx)
 	j = -1;
 	i1 = mlx->x - 5 * mlx->b_size;
 	j1 = mlx->y - 5 * mlx->b_size;
-	x = (mlx->x - i1) / mlx->b_size * 20;
-	y = (mlx->y - j1) / mlx->b_size * 20;
+	x = 5 * 20;
+	y = 5 * 20;
 	while (++j < (10 * 20))
 		draw_helper(mlx, j1, i1, j);
-	draw_player(mlx, x, y, ft_pixel(0, 195, 255, 255));
-	draw_contour(mlx);
+	draw_player(mlx, x, y, ft_pixel(255, 215, 0, 255));
+	draw_contour(mlx, ft_pixel(200, 40, 40, 255));
 }

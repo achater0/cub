@@ -6,7 +6,7 @@
 /*   By: mstaali <mstaali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:34:46 by mstaali           #+#    #+#             */
-/*   Updated: 2024/09/30 18:39:48 by mstaali          ###   ########.fr       */
+/*   Updated: 2024/10/17 19:27:41 by mstaali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@ int	is_map_character(char c)
 		|| c == '\n' || c == '\t' || c == 'O' || c == 'C')
 		return (1);
 	return (0);
+}
+
+void	validate_map_chars(my_mlx_t *mlx, char *line, int i)
+{
+	while (line[i])
+	{
+		if (line[i] == '\n' && line[i + 1] == '\n')
+		{
+			free(mlx);
+			free(line);
+			error_mssg(NEWLINE_MAP);
+		}
+		if (!is_map_character(line[i]))
+		{
+			free(mlx);
+			free(line);
+			error_mssg(MAP_CHAR);
+		}
+		i++;
+	}
 }
 
 void	is_map_valid(my_mlx_t *mlx, char *line)
@@ -39,22 +59,7 @@ void	is_map_valid(my_mlx_t *mlx, char *line)
 			texture++;
 		i++;
 	}
-	while (line[i])
-	{
-		if (line[i] == '\n' && line[i + 1] == '\n')
-		{
-			free(mlx);
-			free(line);
-			error_mssg(NEWLINE_MAP);
-		}
-		if (!is_map_character(line[i]))
-		{
-			free(mlx);
-			free(line);
-			error_mssg(MAP_CHAR);
-		}
-		i++;
-	}
+	validate_map_chars(mlx, line, i);
 }
 
 char	*read_from_file(my_mlx_t *mlx, char *av)
@@ -81,55 +86,7 @@ char	*read_from_file(my_mlx_t *mlx, char *av)
 		tmp = get_next_line(fd);
 	}
 	close(fd);
-	return(line);
-}
-
-void	map_padding(my_mlx_t *mlx, char **layout)
-{
-	int	i;
-	int	j;
-	int	len;
-
-	mlx->map = malloc((mlx->rows + 1) * sizeof(char *));
-	if (!mlx->map)
-		return ;
-	i = -1;
-	while (++i < (int)mlx->rows)
-	{
-		mlx->map[i] = malloc(mlx->cols + 1);
-		len = ft_strlen(layout[i]);
-		ft_strlcpy(mlx->map[i], layout[i], len + 1);
-		j = len;
-		while (j < (int)mlx->cols)
-			mlx->map[i][j++] = '5';
-		mlx->map[i][mlx->cols] = '\0';
-	}
-	mlx->map[mlx->rows] = NULL;
-}
-
-void	fill_map(my_mlx_t *mlx, char **layout)
-{
-	int		i;
-
-	mlx->rows = ft_dbl_strlen(layout);
-	mlx->cols = 0;
-	i = 0;
-	while (i < (int)mlx->rows)
-	{
-		if (ft_strlen(layout[i]) > mlx->cols)
-			mlx->cols = ft_strlen(layout[i]);
-		i++;
-	}
-	map_padding(mlx, layout);
-}
-
-void	free_textures(t_texture *texture)
-{
-	free(texture->no);
-	free(texture->so);
-	free(texture->we);
-	free(texture->ea);
-	free(texture);
+	return (line);
 }
 
 void	get_layout(my_mlx_t *mlx, char *av)
@@ -144,21 +101,19 @@ void	get_layout(my_mlx_t *mlx, char *av)
 	check_textures(mlx, layout);
 	if (!is_surrounded_by_walls(layout + 7))
 	{
-		free_textures(mlx->texture);
-		free(mlx);
-		error_mssg(WALLS);
+		free_textures(mlx);
+		error_mssg_2(WALLS);
 	}
 	if (!player_exists(layout + 7))
 	{
-		free_textures(mlx->texture);
-		free(mlx);
-		error_mssg(PLAYER_NOT_FOUND);
+		free_textures(mlx);
+		error_mssg_2(PLAYER_NOT_FOUND);
 	}
 	if (!is_valid_doors(layout + 7))
 	{
-		free_textures(mlx->texture);
-		free(mlx);
-		error_mssg(DOORS);
+		free_textures(mlx);
+		error_mssg_2(DOORS);
 	}
 	fill_map(mlx, layout + 7);
+	ft_dbl_free(layout);
 }
